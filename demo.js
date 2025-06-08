@@ -67,9 +67,74 @@ const getProductNum = () => {
     return productNumbers;
   }
 };
-console.log(getProductNum());
+// console.log(getProductNum());
 // const data={
 //     earphone:2,
 //     momo and sprite:2,
 //     phone:1
 // }
+
+const potentialMatch = [
+  {
+    id: 1,
+    Fname: "abdul",
+    Lname: "rahman",
+    age: 25,
+    gender: "male",
+    maritalStatus: "single",
+    location: {
+      permanentLocation: { city: "delhi", country: "India" },
+      currentLocation: { city: "bangalore", country: "India" },
+    },
+  },
+  {
+    id: 2,
+    Fname: "shradha",
+    Lname: "bhattrai",
+    age: 24,
+    gender: "female",
+    maritalStatus: "single",
+    location: {
+      permanentLocation: { city: "kawasoti", country: "Nawalpur" },
+      currentLocation: { city: "Texas", country: "USA" },
+    },
+  },
+  {
+    id: 3,
+    Fname: "sumit",
+    Lname: "oli",
+    age: 22,
+    gender: "male",
+    maritalStatus: "married",
+    partnerName: "sushmita",
+    location: {
+      permanentLocation: { city: "delhi", country: "India" },
+      currentLocation: { city: "bangalore", country: "India" },
+    },
+  },
+];
+
+const shadiwebAPIresp = {
+  status: 200,
+  message: "data fetched",
+  data: potentialMatch,
+};
+
+const getMyPerfectMatch = () => {
+  if (shadiwebAPIresp.status === 200) {
+    shadiwebAPIresp.data.map((candidate) => {
+      const { gender, age, maritalStatus, location } = candidate;
+      const myRequirement =
+        (gender === "female" && maritalStatus === "single") || age > 20;
+
+      if (myRequirement) {
+        location.currentLocation.country === "USA"
+          ? console.log(
+              `My perfect match is ${candidate.Fname} ${candidate.Lname}, who is ${age} years old, lives in ${location.currentLocation.city}, ${location.currentLocation.country}, and is ${maritalStatus}.`
+            )
+          : console.log("sorry, you're still single, keep searching!");
+      }
+    });
+  }
+};
+getMyPerfectMatch();
