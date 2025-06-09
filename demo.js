@@ -82,10 +82,10 @@ const potentialMatch = [
     age: 25,
     gender: "male",
     maritalStatus: "single",
-    location: {
-      permanentLocation: { city: "delhi", country: "India" },
-      currentLocation: { city: "bangalore", country: "India" },
-    },
+    location: [
+      { city: "delhi", country: "India" },
+      { city: "bangalore", country: "India" },
+    ],
   },
   {
     id: 2,
@@ -94,10 +94,10 @@ const potentialMatch = [
     age: 24,
     gender: "female",
     maritalStatus: "single",
-    location: {
-      permanentLocation: { city: "kawasoti", country: "Nawalpur" },
-      currentLocation: { city: "Texas", country: "USA" },
-    },
+    location: [
+      { city: "kawasoti", country: "Nawalpur" },
+      { city: "Texas", country: "USA" },
+    ],
   },
   {
     id: 3,
@@ -107,10 +107,10 @@ const potentialMatch = [
     gender: "male",
     maritalStatus: "married",
     partnerName: "sushmita",
-    location: {
-      permanentLocation: { city: "delhi", country: "India" },
-      currentLocation: { city: "bangalore", country: "India" },
-    },
+    location: [
+      { city: "delhi", country: "India" },
+      { city: "bangalore", country: "India" },
+    ],
   },
 ];
 
@@ -137,4 +137,29 @@ const getMyPerfectMatch = () => {
     });
   }
 };
-getMyPerfectMatch();
+// getMyPerfectMatch();
+
+const getCountryNames = () => {
+  let countryNames = [];
+  shadiwebAPIresp.data.map((candidate) => {
+    candidate.location.map((loc) => {
+      // !countryNames.includes(loc.country)
+      //   ? countryNames.push(loc.country)
+      //   : null;
+      countryNames.push(loc.country);
+    });
+  });
+  const result = countryNames.filter((country, index) => {
+    return countryNames.indexOf(country) === index;
+  });
+
+  return result;
+  // return [...new Set(countryNames)]; // Using Set to remove duplicates
+};
+const arr = [1, 1, 2, 3, 4, 5, 5, 6];
+
+const result = arr.filter((num, index) => {
+  return arr.indexOf(num) === index;
+});
+
+console.log(getCountryNames());
